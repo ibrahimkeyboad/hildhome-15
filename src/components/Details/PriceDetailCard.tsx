@@ -1,9 +1,17 @@
+import { Price } from '@/app/(propertiesList)/page';
 import formatPrice from '@/utils/formatPrice';
-function PriceDetailCard({ data }) {
+
+type Props = {
+  price: Price;
+};
+
+function PriceDetailCard({ price }: Props) {
   return (
     <h3 className='lg:text-3xl text-2xl font-bold'>
-      Tsh {formatPrice(data.price.priceAmount)}
-      <span className='text-lg font-normal text-muted-foreground'>/month</span>
+      Tsh {formatPrice(price.amount)}
+      <span className='text-lg font-normal text-muted-foreground'>
+        /{price.duration}
+      </span>
     </h3>
   );
 }

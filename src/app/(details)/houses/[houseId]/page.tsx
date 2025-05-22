@@ -2,18 +2,16 @@ import { notFound } from 'next/navigation';
 import { baseUrl } from '@/action/baseUrl';
 import CoverImageDetail from '@/components/CoverImageDetail';
 import MainCard from './_components/MainCard';
+import { Property } from '@/app/(propertiesList)/page';
 
 export const revalidate = 60;
 export const dynamicParams = true;
 
-export async function generateMetadata({
-  params,
-  searchParams,
-}: {
-  params: { houseId: string };
-  searchParams: any;
-}) {
-  const res = await fetch(`${baseUrl}/all-houses/${params.houseId}`, {
+type Params = Promise<{ houseId: string }>;
+
+export async function generateMetadata({ params }: { params: Params }) {
+  const houseId = (await params).houseId;
+  const res = await fetch(`${baseUrl}/property/${houseId}`, {
     cache: 'force-cache',
   });
 
@@ -25,30 +23,23 @@ export async function generateMetadata({
 }
 
 export async function generateStaticParams() {
-  const res = await fetch(`${baseUrl}/all-houses`);
+  const res = await fetch(`${baseUrl}/property/all`);
 
   const houses = await res?.json();
 
-  const ids = houses.map((house) => ({ houseId: house.id }));
+  const ids = houses.map((house: Property) => ({ houseId: house.id }));
 
   return ids;
 }
 
-async function Page({
-  params,
-  searchParams,
-}: {
-  params: { houseId: string };
-  searchParams: any;
-}) {
-  // const res = await getHouseWithId(params.houseId);
-  const res = await fetch(`${baseUrl}/all-houses/${params.houseId}`, {
-    cache: 'force-cache',
-  });
+async function Page({ params }: { params: Params }) {
+  const houseId = (await params).houseId;
 
-  const house = await res?.json();
+  const house = await fetch(`${baseUrl}/property/${houseId}`, {
+    // cache: "force-cache",
+  }).then((res) => res.json());
 
-  if (!res || !house) {
+  if (!house) {
     notFound();
   }
 

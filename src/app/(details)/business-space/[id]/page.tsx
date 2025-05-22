@@ -34,15 +34,9 @@ export async function generateStaticParams() {
 async function PotionsPage({ params }: { params: Params }) {
   const id = (await params).id;
 
-  const res = await fetch(`${baseUrl}/all-business-spaces/${id}`, {
+  const potion = await fetch(`${baseUrl}/all-business-spaces/${id}`, {
     next: { revalidate: 60 },
-  });
-
-  if (!res) {
-    notFound();
-  }
-
-  const potion = await res?.json();
+  }).then((res) => res.json());
 
   if (!potion) {
     notFound();

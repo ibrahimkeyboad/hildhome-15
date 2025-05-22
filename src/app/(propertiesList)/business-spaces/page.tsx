@@ -18,8 +18,8 @@ export default async function FRAMESPAGE() {
     <section className='w-full py-12'>
       <div className='px-4 md:px-6 flex flex-col gap-4'>
         <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 gap-6'>
-          {potions.map((frame) => (
-            <FrameListCard key={frame.id} data={frame} />
+          {potions.map((frame, i) => (
+            <FrameListCard key={i} data={frame} />
           ))}
         </div>
       </div>

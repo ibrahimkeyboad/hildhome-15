@@ -18,13 +18,11 @@ import {
   Droplet,
   GraduationCapIcon,
   Heart,
-  Home,
   HomeIcon,
   Hospital,
   Lock,
   Maximize,
   School,
-  Share2,
   ShoppingBagIcon,
   Trees,
   ShoppingCart,
@@ -35,27 +33,44 @@ import {
   UsersIcon,
   Waves,
   Zap,
+  ParkingCircle,
+  Utensils,
+  Pizza,
+  Martini,
+  BriefcaseBusiness,
+  Fuel,
+  Apple,
+  BedDouble,
+  Flower2,
+  Pill,
+  Scissors,
+  MicVocal,
+  Dumbbell,
 } from 'lucide-react';
 import OwnerCard from '@/components/Details/OwnerCard';
+import { Property } from '@/app/(propertiesList)/page';
 
-function HouseDetails({ data }) {
-  console.log(data);
+type Props = {
+  data: Property;
+};
+
+function HouseDetails({ data }: Props) {
   return (
     <div className='space-y-5'>
       <TitlePriceOwnerDetail data={data} />
 
-      <div className='grid grid-cols-2 sm:grid-cols-4 gap-4 mb-8'>
-        <Card className=''>
+      <div className='grid grid-cols-2 sm:grid-cols-3 gap-4 mb-8'>
+        {/* <Card className=''>
           <CardContent className='flex  items-center p-4'>
             <Home className='w-8 h-8 text-primary mr-2' />
             <p className='text-sm text-center'>{data?.type}</p>
           </CardContent>
-        </Card>
+        </Card> */}
         <Card>
           <CardContent className='flex items-center p-4'>
             <Bed className='h-5 w-5 mr-2 text-primary' />
             <span>
-              {data?.room} Bedroom{data?.room > 1 ? 's' : ''}
+              {data?.bedroom} Bedroom{data?.bedroom > 1 ? 's' : ''}
             </span>
           </CardContent>
         </Card>
@@ -63,20 +78,15 @@ function HouseDetails({ data }) {
           <CardContent className='flex items-center p-4'>
             <Bath className='h-5 w-5 mr-2 text-primary' />
             <span>
-              {data?.bath} Bathroom{data?.bath > 1 ? 's' : ''}
+              {data?.bathroom} Bathroom{data?.bathroom > 1 ? 's' : ''}
             </span>
           </CardContent>
         </Card>
-        {/* <Card>
-          <CardContent className='flex items-center p-4'>
-            <Car className='h-5 w-5 mr-2 text-primary' />
-            <span>2 Parking</span>
-          </CardContent>
-        </Card> */}
+
         <Card>
           <CardContent className='flex items-center p-4'>
             <Maximize className='h-5 w-5 mr-2 text-primary' />
-            <span>{data?.size} sq ft</span>
+            <span>{data?.size} 400 sq ft</span>
           </CardContent>
         </Card>
       </div>
@@ -84,10 +94,9 @@ function HouseDetails({ data }) {
       <OwnerCard />
 
       <HouseRooms
-        room={data.room}
-        bath={data?.bath}
-        type={data.type}
-        rooms={data?.rooms}
+        room={data.bedroom}
+        bath={data?.bathroom}
+        features={data.features}
       />
       <Card className='mb-6 border-none'>
         <CardHeader>
@@ -104,22 +113,36 @@ function HouseDetails({ data }) {
         <CardContent>
           <div className='flex flex-col space-y-4'>
             <h2 className={cn('text-2xl tracking-wider')}>Nearby</h2>
-            <ul className='grid grid-cols-2 md:grid-cols-4 gap-4'>
-              {data?.nearby?.map((item: string, i: number) => (
+            <ul className='grid grid-cols-2 md:grid-cols-4 gap-x-4 gap-y-6'>
+              {data?.nearBy?.map((item: string, i: number) => (
                 <li key={i} className='flex items-center gap-2'>
                   {item === 'River' && <Waves />}
                   {item === 'Road' && <BusFront />}
                   {item.includes('Bus') && <BusFront />}
                   {item === 'Hospital' && <Hospital />}
                   {item === 'Park' && <Trees />}
+                  {item === 'Parking' && <ParkingCircle />}
                   {item === 'Lake' && <Waves />}
+                  {item === 'Pharmacy' && <Pill />}
+                  {item === 'Car wash' && <Car />}
+                  {item === 'Hair salon' && <Scissors />}
+                  {item === 'Music venue' && <MicVocal />}
+                  {item === 'Gym' && <Dumbbell />}
                   {item === 'Ocean' && <Waves />}
+                  {item === 'Supermarket' && <ShoppingCart />}
+                  {item === 'Makert' && <Apple />}
+                  {item === 'Fast food' && <Pizza />}
+                  {item === 'Bar' && <Martini />}
+                  {item === 'Mall' && <ShoppingCart />}
+                  {item === 'Hotel' && <BedDouble />}
                   {item === 'Shop' && <ShoppingBagIcon />}
                   {item.includes('Mall') && <ShoppingCart />}
                   {item.includes('center') && <ShoppingCart />}
                   {item === 'Beach' && <UmbrellaIcon />}
+                  {item === 'Cafe' && <CoffeeIcon />}
+                  {item === 'Gas station' && <Fuel />}
                   {item === 'School' && <School />}
-                  {item === 'Restaurant' && <CoffeeIcon />}
+                  {item === 'Restaurant' && <Utensils />}
                   <span>{item}</span>
                 </li>
               ))}
@@ -131,7 +154,7 @@ function HouseDetails({ data }) {
         <CardContent>
           <div className='flex flex-col space-y-4'>
             <h2 className={cn('text-2xl tracking-wider')}>Suitable For</h2>
-            <ul className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2'>
+            <ul className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4'>
               {data?.suitableFor?.map((item: string, i: number) => (
                 <li key={i} className='flex items-center gap-2'>
                   {item === 'Couple' && <Heart />}
@@ -140,6 +163,7 @@ function HouseDetails({ data }) {
                   {/* orgnization */}
                   {item === 'Large family' && <HomeIcon />}
                   {item.includes('Small family') && <UsersIcon />}
+                  {item === 'Business' && <BriefcaseBusiness />}
                   <span>{item}</span>
                 </li>
               ))}
@@ -153,7 +177,7 @@ function HouseDetails({ data }) {
           <div className='flex flex-col space-y-4'>
             <h2 className={cn('text-2xl tracking-wider')}>Amenities</h2>
             <ul className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4'>
-              {data.amenities.map((item: string, i: number) => (
+              {data?.amenities?.map((item: string, i: number) => (
                 <li key={i} className='flex items-center gap-2'>
                   {item.includes('Parking') && <Car />}
                   {item.includes('Water') && <Droplet />}
@@ -161,6 +185,7 @@ function HouseDetails({ data }) {
                   {item === 'Doorbell' && <Bell />}
                   {item === 'Security System' && <Lock />}
                   {item === 'Waste Disposal' && <Trash2 />}
+                  {item === 'Garden' && <Flower2 />}
                   {item === 'Air Conditioning' && <Snowflake />}
                   {item.includes('Swim') && (
                     <svg
@@ -179,19 +204,6 @@ function HouseDetails({ data }) {
           </div>
         </CardContent>
       </Card>
-
-      {data.additionalInformation && (
-        <Card className='mb-6 border-none'>
-          <CardHeader>
-            <CardTitle className={cn('tracking-wider')}>
-              Additional Information
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <CardDescription>{data?.additionalInformation}</CardDescription>
-          </CardContent>
-        </Card>
-      )}
     </div>
   );
 }

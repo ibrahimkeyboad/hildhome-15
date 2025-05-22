@@ -1,9 +1,10 @@
 import PriceDetailCard from './PriceDetailCard';
 import { MapPin } from 'lucide-react';
 import { ShareDialog } from '../DetailsHeader';
+import { Property } from '@/app/(propertiesList)/page';
 
 type Props = {
-  data: any;
+  data: Property;
 };
 
 export function TitlePriceOwnerDetail({ data }: Props) {
@@ -24,7 +25,7 @@ export function TitlePriceOwnerDetail({ data }: Props) {
         <ShareDialog title={data.title} hashtags={['house', 'single']} />
       </div>
 
-      <PriceDetailCard data={data} />
+      <PriceDetailCard price={data.price} />
     </div>
   );
 }

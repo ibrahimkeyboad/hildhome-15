@@ -12,23 +12,18 @@ import Image from 'next/image';
 import { BathIcon, BedIcon, DoorOpen, MapIcon } from 'lucide-react';
 import formatPrice from '@/utils/formatPrice';
 import Link from 'next/link';
+import type {
+  Image as ImageType,
+  Location,
+  Price,
+} from '@/app/(propertiesList)/page';
 
 type HomeCardType = {
-  images: {
-    uri: string;
-    public_id: string;
-  }[];
+  images: ImageType[];
   id: string;
   title: string;
-  price: {
-    priceAmount: number;
-    priceDuration: number;
-  };
-  location: {
-    street: string;
-    city: string;
-    country: string;
-  };
+  price: Price;
+  location: Location;
 
   room: number;
   bath: number;
@@ -43,17 +38,16 @@ type HomeCardType = {
 function HomeCard({
   id,
   bath,
-  images,
   location,
   price,
   room,
   size,
   title,
   category,
-  suitableFor,
+  // suitableFor,
   cover_image,
-  nearby,
-}: HomeCardType) {
+}: // nearby,
+HomeCardType) {
   const [hover, setHover] = useState(false);
 
   const { ref, inView } = useInView({
@@ -129,7 +123,7 @@ function HomeCard({
         </div>
         <p className='text-sm text-gray-500 dark:text-gray-400'></p>
         <h4 className='font-medium text-base md:text-lg'>
-          Tsh {formatPrice(price.priceAmount)} / {price.priceDuration}
+          Tsh {formatPrice(price.amount)} / {price.duration}
         </h4>
         <div className='flex items-center gap-2 mt-1'>
           <DoorOpen className='w-5 h-5' />

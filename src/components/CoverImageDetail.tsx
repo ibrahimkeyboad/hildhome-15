@@ -24,8 +24,9 @@ import {
   CarouselPrevious,
 } from '@/components/ui/carousel';
 import useEmblaCarousel from 'embla-carousel-react';
+import { Property } from '@/app/(propertiesList)/page';
 
-function CoverImageDetail({ data }) {
+function CoverImageDetail({ data }: { data: Property }) {
   const [isGalleryOpen, setIsGalleryOpen] = useState(false);
   const [emblaRef, emblaApi] = useEmblaCarousel();
   const [fullScreenImage, setFullScreenImage] = useState<string | null>(null);
@@ -62,9 +63,9 @@ function CoverImageDetail({ data }) {
                 <div onClick={openGallery} className='relative aspect-[4/3]'>
                   <Image
                     onClick={() => setIsGalleryOpen(true)}
-                    width={500}
-                    height={300}
-                    src={image.uri || image}
+                    width={600}
+                    height={400}
+                    src={typeof image === 'string' ? image : image.uri}
                     alt={`${data.title} Hild properties`}
                     loading='lazy'
                     className='w-full h-full cursor-pointer object-cover rounded-lg'
@@ -87,7 +88,7 @@ function CoverImageDetail({ data }) {
             // src={data.cover_image}
             // alt={`${data.title} Hildhome`}
             onClick={() => setIsGalleryOpen(true)}
-            src={data.images[0].uri || data.images[0]}
+            src={data.images[0].uri as string}
             alt={`${data.title} in Hild properties`}
             width={600}
             height={480}
@@ -99,13 +100,13 @@ function CoverImageDetail({ data }) {
         </div>
 
         {data.images.slice(1, 5).map((img, i) => (
-          <div key={1} className={cn(i === 3 && 'relative')}>
+          <div key={i} className={cn(i === 3 && 'relative')}>
             <Image
               key={i}
-              src={img.uri || img}
+              src={img.uri}
               alt={`${data.title} Hildhome`}
-              width={500}
-              height={300}
+              width={600}
+              height={400}
               onClick={openGallery}
               loading='lazy'
               className={`h-[14.8rem] cursor-pointer w-full object-cover ${
@@ -148,8 +149,8 @@ function CoverImageDetail({ data }) {
                           // (index + 1) % 3 === 0 ? 'col-span-2' : 'col-span-1'
                         )}>
                         <Image
-                          src={image.uri || image}
-                          // alt={image.alt}
+                          src={image.uri}
+                          alt={image.title}
                           width={500}
                           height={300}
                           loading='lazy'

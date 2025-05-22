@@ -1,7 +1,8 @@
+import { Property } from '@/app/(propertiesList)/page';
 import HouseDetails from './HouseDetails';
 
 interface Props {
-  data: any;
+  data: Property;
 }
 
 async function MainCard({ data }: Props) {

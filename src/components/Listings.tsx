@@ -1,9 +1,10 @@
 import HomeCard from './HomeCard';
 import FrameListCard from './FrameListCard';
 import { ApartmentListCard } from './ApartmentListCard';
+import { Property } from '@/app/(propertiesList)/page';
 
 interface ListingsProps {
-  property: any;
+  property: Property;
   yes?: boolean;
 }
 
@@ -20,19 +21,18 @@ function Listings({ property }: ListingsProps) {
 
       {property?.category === 'house' && (
         <HomeCard
-          cover_image={property.cover_image}
+          cover_image={property.images[0]?.uri}
           category={property.category}
           id={property.id}
-          bath={property.bath}
+          bath={property.bathroom}
           images={property.images}
           location={property.location}
           price={property.price}
           size={400}
-          room={property.room}
+          room={property.bedroom}
           title={property.title}
-          slag={property.slag}
           suitableFor={property.suitableFor}
-          nearby={property.nearby}
+          nearby={property.nearBy}
         />
       )}
     </>

@@ -18,8 +18,8 @@ async function HomePage() {
 
   return (
     <Container>
-      {houses.map((house) => (
-        <Listings property={house} key={`${house.id}`} />
+      {houses.map((house, i) => (
+        <Listings property={house} key={`${i}`} />
       ))}
     </Container>
   );

@@ -3,6 +3,7 @@ import { auth } from '@/auth';
 import CoverImageDetail from '@/components/CoverImageDetail';
 import { baseUrl } from '@/action/baseUrl';
 import PotionTabContainer from './_component/ApartmentDetail';
+import { notFound } from 'next/navigation';
 
 type Params = { apartmentId: string };
 
@@ -36,11 +37,10 @@ async function Page({ params }: { params: { apartmentId: string } }) {
     }
   ).then((res) => res.json());
 
-  const session = await auth();
-
   if (!potion) {
-    return <p>not found</p>;
+    notFound();
   }
+  const session = await auth();
 
   return (
     <>
